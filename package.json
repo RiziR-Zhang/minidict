@@ -6,14 +6,15 @@
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "bin": {
-        "dict": "./dist/cli.js"
+        "dict": "./dist/cli.js",
+        "dict-gui": "./dist/gui/cli.js"
     },
     "files": [
         "dist"
     ],
     "scripts": {
         "clean": "rm -rf dist",
-        "build": "bun run clean && tsc && chmod +x dist/cli.js",
+        "build": "bun run clean && tsc && chmod +x dist/cli.js dist/gui/cli.js",
         "dev": "tsc -w",
         "test": "jest",
         "lint": "eslint \"src/**/*.ts\" \"test/**/*.ts\"",
@@ -21,7 +22,8 @@
         "format:check": "prettier --check .",
         "prepublishOnly": "bun run build",
         "prepare": "husky || true",
-        "start": "node dist/cli.js"
+        "start": "node dist/cli.js",
+        "gui": "node dist/gui/cli.js"
     },
     "lint-staged": {
         "*.ts": [

@@ -116,6 +116,39 @@ Options:
   -v, --version               显示版本
 ```
 
+## 极简 GUI
+
+安装后也可以启动一个轻量查询小窗：
+
+```bash
+dict-gui
+```
+
+GUI 会复用 `~/.minidict.json` 中的默认配置。窗口内可输入单词、短语或句子，按回车或点击“查询”开始查询；可勾选词典源，并切换是否显示例句。各词典源并行查询，哪个源先返回就先显示。
+
+默认行为是在 `127.0.0.1` 启动本地服务，并在 Windows 上尝试用 Microsoft Edge 的 app 模式打开小窗。`dict-gui` 会把服务放到后台运行，终端会立即返回；关闭 GUI 窗口后，后台服务会在数秒内自动退出。非 Windows 系统或 Edge 打开失败时，会在终端输出本地 URL，可直接用浏览器访问。
+
+```bash
+# 使用指定配置文件
+dict-gui --config /path/to/my-minidict.json
+
+# 指定本地服务端口
+dict-gui --port 8765
+
+# 只启动本地服务，不自动打开窗口
+dict-gui --no-open
+
+# 前台运行，便于查看日志和调试
+dict-gui --foreground
+```
+
+在源码仓库中开发调试时，如果还没有通过 `npm link` 或重新全局安装当前包，终端不会直接识别 `dict-gui`。可先编译，再使用本地脚本启动：
+
+```bash
+npx tsc
+npm run gui -- --foreground
+```
+
 ### 自动更新
 
 - 每次查询结束后，minidict 会在后台静默检查 npm 上是否有新版本（默认开启，**每 24 小时最多检查一次**，结果缓存在 `~/.minidict/update-check.json`）。有新版本时会在结尾给出一行提示。
